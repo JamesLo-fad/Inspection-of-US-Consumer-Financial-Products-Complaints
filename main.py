@@ -7,14 +7,11 @@ import seaborn as sns
 
 st.title('US Consumer Finance Complaints')
 
-DATE_COLUMN = 'date_received'
-DATA_URL = 'C:\\Users\\LO TSZ FOR JAMES\\Desktop\\D.E Bootcamp\\streamlit\\consumer_complaints.csv'
-
 
 @st.cache
 def load_data():
     print("Loading csv.")
-    data = pd.read_csv(DATA_URL)
+    data = pd.read_csv('consumer_complaints.zip')
     data['date_received'] = data['date_received'].apply(lambda v: datetime.strptime(v, '%m/%d/%Y'))
     data['date_sent_to_company'] = data['date_sent_to_company'].apply(lambda v: datetime.strptime(v, '%m/%d/%Y'))
     data['Processing Time (Days)'] = data.apply(lambda row: (row['date_sent_to_company'] - row['date_received']).days,
